@@ -24,6 +24,11 @@
       <artifactId>spring-boot-starter-data-jpa</artifactId> <!-- starter includes hibernate -->
     </dependency>
     <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId> <!-- including Mockito -->
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>com.querydsl</groupId>
       <artifactId>querydsl-jpa</artifactId>
       <classifier>jakarta</classifier>
@@ -45,6 +50,11 @@
       <groupId>org.zalando</groupId>
       <artifactId>logbook-spring-boot-starter</artifactId> <!-- HTTP Request and Response Logging -->
       <version>3.7.2</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>33.2.1-jre</version>
     </dependency>
   </dependencies>
   <build>

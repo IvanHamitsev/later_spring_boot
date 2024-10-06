@@ -15,7 +15,7 @@ public class ItemNoteController {
     @GetMapping(params = "url")
     public List<ItemNoteDto> searchByUrl(@RequestHeader("X-Later-User-Id") long userId,
                                          @RequestParam(name = "url") String url) {
-        return itemNoteService.searchNotesByUrl(url, userId);
+        return itemNoteService.searchNotesByUrl(userId, url);
     }
 
     @GetMapping(params = "tag")

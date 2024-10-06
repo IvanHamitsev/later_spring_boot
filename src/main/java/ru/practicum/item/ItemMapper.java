@@ -7,6 +7,7 @@ import ru.practicum.user.User;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.stream.StreamSupport;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 final class ItemMapper {
@@ -28,10 +29,13 @@ final class ItemMapper {
     }
 
     public static List<ItemDto> mapToItemDto(Iterable<Item> items) {
-        List<ItemDto> dtos = new ArrayList<>();
+        return StreamSupport.stream(items.spliterator(), true)
+                .map(ItemMapper::mapToItemDto)
+                .toList();
+/*        List<ItemDto> dtos = new ArrayList<>();
         for (Item item : items) {
             dtos.add(mapToItemDto(item));
         }
-        return dtos;
+        return dtos;*/
     }
 }
