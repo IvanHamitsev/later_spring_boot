@@ -10,7 +10,7 @@ import java.util.List;
 
 @Transactional(readOnly = true)
 interface ItemNoteRepository extends JpaRepository<ItemNote, Long> {
-    List<ItemNote> fingAllByItemUserIdAndItemUrlContaining(long userId, String url);
+    List<ItemNote> findAllByItemUserIdAndItemUrlContaining(long userId, String url);
 
     @Query("select itNote " +
             "from ItemNote as itNote " +
