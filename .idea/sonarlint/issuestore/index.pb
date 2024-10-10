@@ -17,3 +17,5 @@ d
 4src/main/java/ru/practicum/note/ItemNoteService.java,4\7\47e757baec6be19ff9f647af47d8d17403315206
 g
 7src/main/java/ru/practicum/note/ItemNoteController.java,1\a\1adb970e7cff6f8dc9cfde231aaed1eed753353d
+d
+4src/main/java/ru/practicum/user/UserServiceImpl.java,9\4\9422a72a4735de00da6d79f2a9e109d6a5c7aa8f

@@ -4,13 +4,10 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,20 +22,16 @@ import static org.hamcrest.Matchers.*;
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 
 @DataJpaTest
+@Import(UserServiceImpl.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @TestPropertySource(properties = { "jdbc.url=jdbc:postgresql://localhost:5432/later"})
-@ExtendWith(MockitoExtension.class)
 class UserServiceImplTest {
 
     @Autowired
     private final EntityManager em;
     
-    @MockBean
-    private final UserRepository repository;
-
-    @MockBean
-    @InjectMocks
-    private final UserService service;
+    @Autowired
+    private final UserServiceImpl service;
 
     @Test
     void testSaveUser() {
@@ -46,7 +39,7 @@ class UserServiceImplTest {
         UserDto userDto = makeUserDto("some@email.com", "Пётр", "Иванов");
 
         // when
-        service.saveUser(userDto);
+        UserDto retUser = service.saveUser(userDto);
 
         // then
         TypedQuery<User> query = em.createQuery("Select u from User u where u.email = :email", User.class);
