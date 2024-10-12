@@ -18,18 +18,21 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
-@Transactional
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
+@Import(UserServiceImpl.class)
+
+@Transactional
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@TestPropertySource(properties = {"spring.datasource.url=jdbc:postgresql://localhost:5432/laterTest"
+        , "spring.datasource.username=testUser"
+        , "spring.datasource.password=testpass"})
 
 @DataJpaTest
-@Import(UserServiceImpl.class)
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@TestPropertySource(properties = { "jdbc.url=jdbc:postgresql://localhost:5432/later"})
 class UserServiceImplTest {
 
     @Autowired
     private final EntityManager em;
-    
+
     @Autowired
     private final UserServiceImpl service;
 
@@ -75,7 +78,7 @@ class UserServiceImplTest {
         // then
         assertThat(targetUsers, hasSize(sourceUsers.size()));
         for (UserDto sourceUser : sourceUsers) {
-            assertThat(targetUsers, hasItem( allOf(
+            assertThat(targetUsers, hasItem(allOf(
                     hasProperty("id", notNullValue()),
                     hasProperty("firstName", equalTo(sourceUser.getFirstName())),
                     hasProperty("lastName", equalTo(sourceUser.getLastName())),

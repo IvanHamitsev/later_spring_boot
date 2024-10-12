@@ -19,3 +19,17 @@ g
 7src/main/java/ru/practicum/note/ItemNoteController.java,1\a\1adb970e7cff6f8dc9cfde231aaed1eed753353d
 d
 4src/main/java/ru/practicum/user/UserServiceImpl.java,9\4\9422a72a4735de00da6d79f2a9e109d6a5c7aa8f
+r
+Bsrc/test/java/ru/practicum/user/UserControllerTestWithContext.java,5\b\5b0d1de592c970357caafb3951f283c14fbce605
+m
+=src/test/java/ru/practicum/user/UserControllerTestConfig.java,9\7\974d4e295eda38bca43158849fb3311d9770cdcb
+\
+,src/main/java/ru/practicum/user/UserDto.java,3\b\3bdc749b3602eb4d778b4632502a86b29134fe60
+Y
+)src/main/java/ru/practicum/user/User.java,6\0\60e4d9a053282cd6bbc49f4b67043d1e886c6d02
+d
+4src/test/java/ru/practicum/user/UserDtoJsonTest.java,0\1\01a76162ed65e80c9b33521f258c3aaf44e8171c
+_
+/src/main/java/ru/practicum/user/UserMapper.java,8\5\85cb390797a0126081f9a32e0f35857814e862e8
+Y
+)src/main/java/ru/practicum/item/Item.java,7\0\707305edafbd18c8c01cc8643ba85e16c31f0cb0

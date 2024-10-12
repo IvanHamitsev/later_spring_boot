@@ -16,7 +16,7 @@ class UserMapper {
                 .withZone(ZoneOffset.UTC)
                 .format(user.getRegistrationDate());
 
-        return new UserDto(user.getId(), user.getEmail(), user.getFirstName(), user.getLastName(), regDate, user.getState());
+        return new UserDto(user.getId(), user.getEmail(), user.getFirstName(), user.getLastName(), regDate, user.getState(), null);
     }
 
     public static List<UserDto> mapToUserDto(Iterable<User> users) {
