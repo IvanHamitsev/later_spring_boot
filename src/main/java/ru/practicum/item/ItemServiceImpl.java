@@ -16,6 +16,7 @@ import java.util.Set;
 class ItemServiceImpl implements ItemService {
     private final ItemRepository repository;
     private final UserRepository userRepository;
+    private final UrlMetadataRetriever retriever;
 
     @Override
     public List<ItemDto> getItems(long userId) {
@@ -38,7 +39,32 @@ class ItemServiceImpl implements ItemService {
     public ItemDto addNewItem(long userId, ItemDto itemDto) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
-        Item item = repository.save(ItemMapper.mapToItem(itemDto, user));
+        Item item = ItemMapper.mapToItem(itemDto, user);
+        // получить метаданные по ссылке
+        var urlMetadata = retriever.retrieve(item.getUrl());
+        // если уже есть в базе, нужно только обновить
+        List<Item> existingItems = repository.findByResolvedUrl(urlMetadata.getResolvedUrl());
+        if (existingItems.isEmpty()) {
+            // В новый Item надо добавить отдельные поля интерфейса urlMetadata
+            item.setResolvedUrl(urlMetadata.getResolvedUrl());
+            item.setMimeType(urlMetadata.getMimeType());
+            item.setTitle(urlMetadata.getTitle());
+            item.setHasImage(urlMetadata.isHasImage());
+            item.setHasVideo(urlMetadata.isHasVideo());
+            item.setDateResolved(urlMetadata.getDateResolved());
+        } else {
+            if (existingItems.size() > 1) {
+                throw new RuntimeException("Нарушение целостности БД: уже существует более одной resolvedUrl "
+                        + urlMetadata.getResolvedUrl());
+            }
+            Item existingItem = existingItems.getFirst();
+            // добавить к существующим ссылкам тэги, которые пользователь указал для новой, если они есть
+            var tags = existingItem.getTags();
+            tags.addAll(item.getTags());
+            existingItem.setTags(tags);
+            item = existingItem;
+        }
+        item = repository.save(item);
         return ItemMapper.mapToItemDto(item);
     }
 

@@ -9,5 +9,7 @@ public interface ItemRepository extends JpaRepository<Item, Long>, QuerydslPredi
 
     List<Item> findByUserId(long userId);
 
+    List<Item> findByResolvedUrl(String resolvedUrl);
+
     void deleteByUserIdAndId(long userId, long itemId);
 }

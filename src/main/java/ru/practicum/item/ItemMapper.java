@@ -15,6 +15,11 @@ final class ItemMapper {
         Item item = new Item();
         item.setUser(user);
         item.setUrl(itemDto.getUrl());
+        item.setResolvedUrl(itemDto.getResolvedUrl());
+        item.setMimeType(itemDto.getMimeType());
+        item.setHasImage(itemDto.isHasImage());
+        item.setHasVideo(itemDto.isHasVideo());
+        item.setDateResolved(itemDto.getDateResolved());
         item.setTags(itemDto.getTags());
         return item;
     }
@@ -24,6 +29,12 @@ final class ItemMapper {
                 item.getId(),
                 item.getUser().getId(),
                 item.getUrl(),
+                item.getResolvedUrl(),
+                item.getMimeType(),
+                item.getTitle(),
+                item.isHasImage(),
+                item.isHasVideo(),
+                item.getDateResolved(),
                 new HashSet<>(item.getTags())
         );
     }
